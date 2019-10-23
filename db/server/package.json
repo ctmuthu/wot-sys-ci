@@ -1,0 +1,21 @@
+{
+  "name": "td-database",
+  "version": "1.0.0",
+  "description": "This is a database for TD in wot-sys",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "db"
+  ],
+  "author": "Muthuraman Chidambaram",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "*",
+    "express": "*",
+    "express-validator": "*",
+    "mongoose": "*"
+  }
+}
