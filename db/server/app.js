@@ -23,7 +23,8 @@ app.get('/api', (req, res) => {
     baseUrl: '',
     endpoints: [
       {method: 'GET', path: '/api', description: 'Describes all available endpoints'},
-      {method: 'GET', path: '/api/td/', description: 'Get All TD information'},
+      {method: 'GET', path: '/api/tds/', description: 'Get All TD information'},
+      {method: 'GET', path: '/api/td/', description: 'Get a TD information'},
       {method: 'POST', path: '/api/td/', description: 'Insert a new TD information'},
       {method: 'PUT', path: '/api/td/', description: 'Update a TD information, based on id'},
       {method: 'DELETE', path: '/api/td/', description: 'Delete a TD information, based on id'},
@@ -39,94 +40,59 @@ app.get('/', function(req, res){
 /*
  * Get All TDs information
  */
-app.get('/api/td/:id', (req, res) => {
-  /*
-   * use the td model and query to mongo database to get all tds
-   */
-  const TDId = req.id;                                                   
-  const TDNewData = req.body;
-  db.td.findOne({id: TDId}, (err, tdFound) => {
-    if (err) throw err;
-    /*
-     * return the object as array of json values
-     */
-    res.json(tdFound);
-  });
+app.get('/api/tds/', async (req, res) => {
+		try {
+		console.log('/api/td/');
+        var result = await db.find().exec();
+        res.send(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 });
 
 /*
+ * Get a TD information
+ */
+app.get('/api/td/:id', async (req, res) => {
+		console.log('/api/td/:id');
+		try {
+		console.log(req.params.id);
+        var foundTd = await db.findById(req.params.id).exec();
+		console.log(foundTd);
+        res.send(foundTd);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+/*
  * Add a TD into database
  */
-app.post('/api/td/', (req, res) => {
-  /*
-   * New TD information in req.body
-   */
-  console.log(req.body.id);
-  console.log(req.body);
-  /*
-   * use the td model and create a new object
-   * with the information in req.body
-   */
-	db.create({
-			id: req.body.id,
-			description: req.body.description
-	}, (err, newBook) => {
-    if (err) throw err;
-    /*
-     * return the new book information object as json
-     */
-    res.json(newBook);
-	});
-//	db.td.create(req.body, (err, newTD) => {
-//    if (err) throw err;
-    /*
-     * return the new td information object as json
-     */
-//    res.json(newTD);
-//  });
+app.post('/api/td/', async (req, res) => {
+		try {
+				var currentTd = new db(req.body);
+				var result = await currentTd.save();
+				res.send(result);
+		} catch (error) {
+				console.log("TD not update" + error);
+		}
 });
 
 /*
  * Update a TD information based upon the specified ID
  */
 app.put('/api/td/:id', (req, res) => {
-  /*
-   * Get the TD ID and new information of TD from the request parameters
-   */
-  const TDId = req.params.id;
-  const TDNewData = req.body;
-  console.log(`TD ID = ${TDId} \n TD Data = ${TDNewData}`);
-  /*
-   * use the td model and find using the TDId and update the TD information
-   */
-  db.td.findOneAndUpdate({_id: TDId}, TDNewData, {new: true},
-                            (err, updatedTDInfo) => {
-    if (err) throw err;
-    /*
-     * Send the updated TD information as a JSON object
-     */
-    res.json(updatedTDInfo);
-  });
 });
 
 /*
  * Delete a TD based upon the specified ID
  */
-app.delete('/api/td/:id', (req, res) => {
-  /*
-   * Get the td ID of td from the request parameters
-   */
-  const TDId = req.params.id;
-  /*
-   * use the td model and find using the TDId and delete the td
-   */
-  db.td.findOneAndRemove({_id: TDId}, (err, deletedTD) => {
-    if (err) throw err;
-    /*
-     * Send the deleted TD information as a JSON object
-     */
-    res.json(deletedTD);
-  });
+app.delete('/api/td/:id', async (req, res) => {
+	try {
+        var result = await db.deleteOne({ _id: req.params.id }).exec();
+        res.send(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 });
 
 app.listen(process.env.PORT || 3000, () => {
