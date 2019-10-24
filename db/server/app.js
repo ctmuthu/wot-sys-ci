@@ -39,16 +39,18 @@ app.get('/', function(req, res){
 /*
  * Get All TDs information
  */
-app.get('/api/td/', (req, res) => {
+app.get('/api/td/:id', (req, res) => {
   /*
    * use the td model and query to mongo database to get all tds
    */
-  db.td.find({}, function (err, td) {
+  const TDId = req.id;                                                   
+  const TDNewData = req.body;
+  db.td.findOne({id: TDId}, (err, tdFound) => {
     if (err) throw err;
     /*
      * return the object as array of json values
      */
-    res.json(td);
+    res.json(tdFound);
   });
 });
 
@@ -59,18 +61,29 @@ app.post('/api/td/', (req, res) => {
   /*
    * New TD information in req.body
    */
+  console.log(req.body.id);
   console.log(req.body);
   /*
    * use the td model and create a new object
    * with the information in req.body
    */
-	db.td.create(req.body, (err, newTD) => {
+	db.create({
+			id: req.body.id,
+			description: req.body.description
+	}, (err, newBook) => {
     if (err) throw err;
+    /*
+     * return the new book information object as json
+     */
+    res.json(newBook);
+	});
+//	db.td.create(req.body, (err, newTD) => {
+//    if (err) throw err;
     /*
      * return the new td information object as json
      */
-    res.json(newTD);
-  });
+//    res.json(newTD);
+//  });
 });
 
 /*
