@@ -17,101 +17,99 @@ app.use(express.urlencoded({extended: true}));
  */
 
 app.get('/api', (req, res) => {
-	res.json({
-		message: 'MongoDB for WOT-sys',
-		documentationUrl: '',
-		baseUrl: '',
-		endpoints: [
-			{method: 'GET', path: '/api', description: 'Describes all available endpoints'},
-			{method: 'GET', path: '/api/tds/', description: 'Get All TD information'},
-			{method: 'GET', path: '/api/td/', description: 'Get a TD information'},
-			{method: 'POST', path: '/api/td/', description: 'Insert a new TD information'},
-			{method: 'PUT', path: '/api/td/', description: 'Update a TD information, based on id'},
-			{method: 'DELETE', path: '/api/td/', description: 'Delete a TD information, based on id'},
-			// TODO: Write API end-points description here, if any new API is added
-		]
-	})
+  res.json({
+	message: 'MongoDB for WOT-sys',
+	documentationUrl: '',
+	baseUrl: '',
+	endpoints: [
+	  {method: 'GET', path: '/api', description: 'Describes all available endpoints'},
+	  {method: 'GET', path: '/api/tds/', description: 'Get All TD information'},
+	  {method: 'GET', path: '/api/td/', description: 'Get a TD information'},
+	  {method: 'POST', path: '/api/td/', description: 'Insert a new TD information'},
+	  {method: 'PUT', path: '/api/td/', description: 'Update a TD information, based on id'},
+	  {method: 'DELETE', path: '/api/td/', description: 'Delete a TD information, based on id'},
+	  // TODO: Write API end-points description here, if any new API is added
+	]
+  })
 });
 
 app.get('/', function(req, res){
-	res.send('Please use /api/...');
+  res.send('Please use /api/...');
 });
 
 /*
  * Get All TDs information
  */
 app.get('/api/tds/', async (req, res) => {
-	try {
-		console.log('/api/td/');
-		var result = await db.find().exec();
-		res.send(result);
-	} catch (error) {
-		res.status(500).send(error);
-	}
+  try {
+	var result = await db.find().exec();
+	res.send(result);
+  } catch (error) {
+	res.status(500).send(error);
+  }
 });
 
 /*
  * Get a TD information
  */
 app.get('/api/td/:id', async (req, res) => {
-	console.log('/api/td/:id');
-	try {
-		console.log(req.params.id);
-		var foundTd = await db.find({id: {"$eq": req.params.id}}).exec();
-		console.log(foundTd);
-		res.send(foundTd);
-	} catch (error) {
-		res.status(500).send(error);
-	}
+  try {
+	var foundTd = await db.find({id: {"$eq": req.params.id}}).exec();
+	res.send(foundTd);
+  } catch (error) {
+	res.status(500).send(error);
+  }
 });
 /*
  * Add a TD into database
  */
 app.post('/api/td/', async (req, res) => {
-	try {
-		console.log("req.body.id: ",req.body.id);
-		var existingCount = await db.find({id: req.body.id}).count().exec();
-		console.log("existingCount: ",existingCount);
-		if (existingCount === 0)
-			req.body.version = 1;
-		if (existingCount === 5) {
-			await db.remove({ id: req.body.id, version: 5}).exec();
-			existingCount = 4;
+  try {
+	if (req.body.description.id != req.body.id)
+	  res.end("id should be same as description.id");
+	else {
+	  var existingCount = await db.find({id: req.body.id}).count().exec();
+	  if (existingCount === 0)
+		req.body.version = 1;
+	  if (existingCount === 5) {
+		await db.remove({ id: req.body.id, version: 5}).exec();
+		existingCount = 4;
+	  }
+	  if (existingCount > 0){
+		for (var i = existingCount; i > 0; i--) {
+		  await db.updateOne({ id: req.body.id, version: i},
+			{$set: { "version" : i+1 }});
 		}
-		if (existingCount > 0){
-			for (var i = existingCount; i > 0; i--) {
-				await db.updateOne({ id: req.body.id, version: i},
-						{$set: { "version" : i+1 }});
-			}
-			req.body.version = 1;
-		}
-		var currentTd = new db(req.body);
-		var result = await currentTd.save();
-		res.send(result);
-	} catch (error) {
-		res.status(500).send(error);
+		req.body.version = 1;
+	  }
+	  var currentTd = new db(req.body);
+	  var result = await currentTd.save();
+	  res.send(result);
 	}
+  } catch (error) {
+	res.status(500).send(error);
+  }
 });
 
 /*
  * Update a TD information based upon the specified ID
  */
 app.put('/api/td/:id', async(req, res) => {
-//TODO: if required
+  //TODO: if required
 });
 
 /*
  * Delete a TD based upon the specified ID
  */
 app.delete('/api/td/:id', async (req, res) => {
-	try {
-		var result = await db.remove({id: {"$eq": req.params.id}}).exec();
-		res.send(result);
-	} catch (error) {
-		res.status(500).send(error);
-	}
+  try {
+	var result = await db.remove({id: {"$eq": req.params.id}}).exec();
+	res.send(result);
+  } catch (error) {
+	res.status(500).send(error);
+  }
 });
 
 app.listen(process.env.PORT || 3005, () => {
-	console.log('Express server is up and running on http://localhost:3000/');
+  console.log('Express server is up and running on http://localhost:3000/');
 })
