@@ -1,0 +1,22 @@
+{
+  "name": "ci",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tester.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MuthuramanCT/wot-sys-ci.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MuthuramanCT/wot-sys-ci/issues"
+  },
+  "homepage": "https://github.com/MuthuramanCT/wot-sys-ci#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}

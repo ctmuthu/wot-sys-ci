@@ -4,14 +4,14 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
 const db = require('./model/td.js');
+const dbJenkins = require('./model/jenkins.js');
 
-mongoose.connect('mongodb://localhost:27017/stats');
+mongoose.connect('mongodb://localhost:27017/tdDB');
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-
 /*
  * JSON API Endpoints
  */
@@ -93,6 +93,17 @@ app.post('/api/td/', async (req, res) => {
 	  var currentTd = new db(req.body);
 	  var result = await currentTd.save();
 	  res.send(result);
+	  var jenkinsCredential = await dbJenkins.find({}).exec();
+	  console.log(jenkinsCredential[0].url);
+	  var url = jenkinsCredential[0].url;
+	  var user = jenkinsCredential[0].username;
+	  var pass = jenkinsCredential[0].password;
+	  var jenkins = require('jenkins')(
+		{ baseUrl: 'http://'.concat(user,":",pass,"@",url), crumbIssuer: true });
+	  jenkins.job.build('db_test', function(err, data) {
+		if (err) throw err;
+		console.log('queue item number', data);
+	  });
 	}
   } catch (error) {
 	res.status(500).send(error);
@@ -119,7 +130,7 @@ app.delete('/api/td/:id', async (req, res) => {
 });
 
 app.listen(process.env.PORT || 3005, () => {
-  console.log('Express server is up and running on http://localhost:3000/');
+  console.log('Express server is up and running on http://localhost:3005/');
 })
 
 function isEquivalent(a, b) {

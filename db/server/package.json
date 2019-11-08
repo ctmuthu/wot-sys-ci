@@ -16,6 +16,7 @@
     "body-parser": "*",
     "express": "*",
     "express-validator": "*",
-    "mongoose": "*"
+    "mongoose": "*",
+    "jenkins": "*"
   }
 }
