@@ -67,13 +67,15 @@ app.post('/api/td/', async (req, res) => {
   try {
 	var latestTD;
 	var proceed = 1;
-	req.body.id = req.body.description.id;
+	req.body.id = req.body.td.id;
+	console.log(req.body.id);
 	var existingCount = await db.find({id: req.body.id}).count().exec();
+	console.log(existingCount);
 	if (existingCount === 0)
 	  req.body.version = 1;
 	else {
-	  latestTD = await db.find({id: req.body.id, version: 1}, {description: 1, _id: 0}).exec();
-	  if(isEquivalent(latestTD[0].description,req.body.description)) {
+	  latestTD = await db.find({id: req.body.id, version: 1}, {td: 1, _id: 0}).exec();
+	  if(isEquivalent(latestTD[0].td,req.body.td)) {
 		proceed = 0;
 		res.status(500).send("Same as latest TD");
 	  }
@@ -149,9 +151,18 @@ function isEquivalent(a, b) {
 
         // If values of same property are not equal,
         // objects are not equivalent
-        if (a[propName] !== b[propName]) {
+		if (typeof a[propName] !== "object") {
+		  if (a[propName] !== b[propName]) {
+			console.log(propName);
+			console.log(typeof a[propName]);
+			console.log(b[propName]);
             return false;
-        }
+		  } 
+		} else {
+			if(!(isEquivalent(a[propName],b[propName]))) {
+			  return false
+			}
+		}
     }
 
     // If we made it this far, objects

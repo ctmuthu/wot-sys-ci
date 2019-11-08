@@ -1,5 +1,5 @@
 const request = require('request');
-
+const sleep = require('sleep');
 request('http://localhost:3005/api/tds', (err, res, body) => {
   if (err) { return console.log(err); }
   tds = JSON.parse(body);
@@ -14,5 +14,6 @@ request('http://localhost:3005/api/tds', (err, res, body) => {
     }, function(error, response, body){
 			console.log(response);
 		});
+	sleep.sleep(30);
   }
 });
