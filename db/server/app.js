@@ -37,6 +37,56 @@ app.get('/', function(req, res){
   res.send('Please use /api/...');
 });
 
+app.post('/', async (req, res) => { 
+  try {
+    var latestTD;
+    var proceed = 1;
+	var tempTD = req.body;
+	req.body = { td: tempTD};
+    req.body.id = req.body.td.id;
+    var existingCount = await db.find({id: req.body.id}).countDocuments().exec();
+    if (existingCount === 0)
+      req.body.version = 1;
+    else {
+      latestTD = await db.find({id: req.body.id, version: 1}, {td: 1, _id: 0}).exec();
+      if(isEquivalent(latestTD[0].td,req.body.td)) {
+        proceed = 0;
+        res.status(500).send("Same as latest TD");
+      }
+    }
+    if (proceed) {
+      if (existingCount === 5) {
+        await db.remove({ id: req.body.id, version: 5}).exec();
+        existingCount = 4;
+      }
+      if (existingCount > 0){
+        for (var i = existingCount; i > 0; i--) {
+          await db.updateOne({ id: req.body.id, version: i},
+            {$set: { "version" : i+1 }});
+        }
+        req.body.version = 1;
+      }
+      var currentTd = new db(req.body);
+      var result = await currentTd.save();
+	  console.log(result);
+      res.send(result);
+      var jenkinsCredential = await dbJenkins.find({}).exec();
+      console.log(jenkinsCredential[0].url);
+      var url = jenkinsCredential[0].url;
+      var user = jenkinsCredential[0].username;
+      var pass = jenkinsCredential[0].password;
+      var jenkins = require('jenkins')(
+        { baseUrl: 'http://'.concat(user,":",pass,"@",url), crumbIssuer: true });
+      jenkins.job.build('db_test', function(err, data) {
+        if (err) throw err;
+        console.log('queue item number', data);
+      });
+    }
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 /*
  * Get All TDs information
  */
@@ -50,12 +100,24 @@ app.get('/api/tds/', async (req, res) => {
 });
 
 /*
+ * Get a TD Count
+ */
+app.get('/api/tdcount/', async (req, res) => {
+  try {
+	var result = await db.find({version: {"$eq": 1}}).countDocuments().exec();
+	res.status(200).send(result);
+  } catch (error) {
+	res.status(500).send(error);
+  }
+});
+
+/*
  * Get a TD information
  */
 app.get('/api/td/:id', async (req, res) => {
   try {
 	var foundTd = await db.find({id: {"$eq": req.params.id}}).exec();
-	res.send(foundTd);
+	res.status(200).send(foundTd);
   } catch (error) {
 	res.status(500).send(error);
   }
@@ -67,9 +129,11 @@ app.post('/api/td/', async (req, res) => {
   try {
 	var latestTD;
 	var proceed = 1;
+	var tempTD = req.body;
+    req.body = { td: tempTD};
 	req.body.id = req.body.td.id;
 	console.log(req.body.id);
-	var existingCount = await db.find({id: req.body.id}).count().exec();
+	var existingCount = await db.find({id: req.body.id}).countDocuments().exec();
 	console.log(existingCount);
 	if (existingCount === 0)
 	  req.body.version = 1;
@@ -77,7 +141,7 @@ app.post('/api/td/', async (req, res) => {
 	  latestTD = await db.find({id: req.body.id, version: 1}, {td: 1, _id: 0}).exec();
 	  if(isEquivalent(latestTD[0].td,req.body.td)) {
 		proceed = 0;
-		res.status(500).send("Same as latest TD");
+		res.status(201).send("Same as latest TD");
 	  }
 	}
 	if (proceed) {

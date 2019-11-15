@@ -3,7 +3,7 @@ Schema = mongoose.Schema;
 const TDSchema = new Schema({
 	id: String, // ID of the TD
 	version: Number,
-	td: {type:Object, required:true}, // Thing Description
+	td: "Object", // Thing Description
 	created: {type: Date, default: Date.now}
  });
 
