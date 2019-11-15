@@ -18,6 +18,7 @@
   "homepage": "https://github.com/MuthuramanCT/wot-sys-ci#readme",
   "dependencies": {
     "request": "^2.88.0",
-	"sleep": "*"
+	"sleep": "*",
+	"fs": "*"
   }
 }
