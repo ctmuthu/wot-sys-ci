@@ -25,7 +25,9 @@ app.get('/api', (req, res) => {
 	  {method: 'GET', path: '/api', description: 'Describes all available endpoints'},
 	  {method: 'GET', path: '/api/tds/', description: 'Get All latest version TD information'},
 	  {method: 'GET', path: '/api/td/', description: 'Get a TD information'},
+	  {method: 'GET', path: '/api/tdcount/', description: 'Get TD count in database'},
 	  {method: 'POST', path: '/api/td/', description: 'Insert a new TD information'},
+	  {method: 'POST', path: '/td/', description: 'Insert a new TD information'},
 	  {method: 'PUT', path: '/api/td/', description: 'Update a TD information, based on id'},
 	  {method: 'DELETE', path: '/api/td/', description: 'Delete a TD information, based on id'},
 	  // TODO: Write API end-points description here, if any new API is added
@@ -37,7 +39,7 @@ app.get('/', function(req, res){
   res.send('Please use /api/...');
 });
 
-app.post('/', async (req, res) => { 
+app.post('/td', async (req, res) => { 
   try {
     var latestTD;
     var proceed = 1;
@@ -77,7 +79,7 @@ app.post('/', async (req, res) => {
       var pass = jenkinsCredential[0].password;
       var jenkins = require('jenkins')(
         { baseUrl: 'http://'.concat(user,":",pass,"@",url), crumbIssuer: true });
-      jenkins.job.build('db_test', function(err, data) {
+      jenkins.job.build('wot-sys-db-automation', function(err, data) {
         if (err) throw err;
         console.log('queue item number', data);
       });
@@ -104,8 +106,8 @@ app.get('/api/tds/', async (req, res) => {
  */
 app.get('/api/tdcount/', async (req, res) => {
   try {
-	var result = await db.find({version: {"$eq": 1}}).countDocuments().exec();
-	res.status(200).send(result);
+	var count = await db.find({version: {"$eq": 1}}).countDocuments().exec();
+	res.status(200).send(count);
   } catch (error) {
 	res.status(500).send(error);
   }
@@ -166,7 +168,7 @@ app.post('/api/td/', async (req, res) => {
 	  var pass = jenkinsCredential[0].password;
 	  var jenkins = require('jenkins')(
 		{ baseUrl: 'http://'.concat(user,":",pass,"@",url), crumbIssuer: true });
-	  jenkins.job.build('db_test', function(err, data) {
+	  jenkins.job.build('wot-sys-db-automation', function(err, data) {
 		if (err) throw err;
 		console.log('queue item number', data);
 	  });
@@ -195,8 +197,8 @@ app.delete('/api/td/:id', async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 3005, () => {
-  console.log('Express server is up and running on http://localhost:3005/');
+app.listen(process.env.PORT || 8080, () => {
+  console.log('Express server is up and running on http://localhost:8080/');
 })
 
 function isEquivalent(a, b) {
@@ -217,10 +219,7 @@ function isEquivalent(a, b) {
         // objects are not equivalent
 		if (typeof a[propName] !== "object") {
 		  if (a[propName] !== b[propName]) {
-			console.log(propName);
-			console.log(typeof a[propName]);
-			console.log(b[propName]);
-            return false;
+			  return false;
 		  } 
 		} else {
 			if(!(isEquivalent(a[propName],b[propName]))) {

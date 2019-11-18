@@ -3,7 +3,7 @@ const sleep = require('sleep');
 const fs = require('fs');
 var results = [];
 async function main() {
-  request('http://localhost:3005/api/tds', async (err, res, body) => {
+  request('http://localhost:8080/api/tds', async (err, res, body) => {
 	if (err) { return console.log(err); }
 	tds = JSON.parse(body);
 	console.log(tds.length);
