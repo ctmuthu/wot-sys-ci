@@ -107,7 +107,7 @@ app.get('/api/tds/', async (req, res) => {
 app.get('/api/tdcount/', async (req, res) => {
   try {
 	var count = await db.find({version: {"$eq": 1}}).countDocuments().exec();
-	res.status(200).send(count);
+	res.status(200).send({"count": count});
   } catch (error) {
 	res.status(500).send(error);
   }
