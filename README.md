@@ -23,10 +23,13 @@ Device setup recreation:
 5. Install MongoDB wihtout authentication:
 
     1. Install docker:
-        - Using this link https://dev.to/rohansawant/installing-docker-and-docker-compose-on-the-raspberry-pi-in-5-simple-steps-3mgl
+        1. Install Docker `curl -sSL https://get.docker.com | sh`
+        2. Add permission to Pi User to run Docker Commands `sudo usermod -aG docker pi`
+        3. Test Docker installation `docker run hello-world `
+        
     2. Install MongoDB from docker:
         - docker build -t andresvidal/rpi3-mongodb3 .
-    3. Starting MongoDB with REST enabled:
+    3. Starting MongoDB with REST enabled: (TODO: Explain what this command does)
         - docker run -d \
             --name rpi3-mongodb3 \
             --restart unless-stopped \
@@ -37,7 +40,7 @@ Device setup recreation:
             andresvidal/rpi3-mongodb3:latest \
             mongod --rest
     4. Check Docker image status:
-        - docker ps
+        - docker ps or docker ps -a to see previous ones
 
 6. Run Database Server: (Only for the first time, On reboot the server is started from the startup file)
     1. Clone this Repository
@@ -47,7 +50,7 @@ Device setup recreation:
     5. Check server process using " ps -ef | grep "node" "
 
 7. Install Jenkins:
-    1. Install Java: (As Jenkins is build using java):
+    1. Install Java: (As Jenkins is built using java):
         - https://imagej.net/Raspberry_Pi
     2. Install Jenkins:
         - https://raspberrytips.com/install-jenkins-raspberry-pi/
