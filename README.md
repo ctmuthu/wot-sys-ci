@@ -41,7 +41,7 @@ Device setup recreation:
         3. Test Docker installation `docker run hello-world `
     2. Install MongoDB from docker:
         - docker build -t andresvidal/rpi3-mongodb3 .
-    3. Starting MongoDB with REST enabled: (TODO: Explain what this command does)
+    3. Starting MongoDB with REST enabled:
         - docker run -d \
             --name rpi3-mongodb3 \
             --restart unless-stopped \
@@ -84,13 +84,26 @@ Device setup recreation:
         - Password : Create a google app password and specify it here
         - Check the Checkbox "Use SSL"
         - SMTP Port : 465
-    3. Change Jenkins port from 8080 to 8081:
+    3. Change Password: (Check with Ege for password)
+        - Go to Manage Jenkins > scroll down
+        - Click on "Manage User" > see userId > click on setting symbol right side of user id(admin) > change the password field > click on save.
+        - Now you can login with new credentials
+    4. Change Jenkins port from 8080 to 8081:
         - "pi" user has sudo privilages by default. 
         - Open file /etc/default/jenkins with desired editor
         - Update the port number 
             -  #HTTP_PORT=8080
                 HTTP_PORT=8081
-    4. Configure Jenkins build for wot-sys
+    5. Update MongoDB with Jenkins Password and URL:
+        - Open MongoDB on console:
+            - sudo docker exec -it rpi3-mongodb3 mongo 
+        - Run the following commands:
+            - use tdDB (Moves to database "tdDB")
+            - db.jenkins.insertOne({    "url": "localhost:8081",
+                                        "username": "admin",
+                                        "password": "" (Password used in step 9:3)
+                                    }) (This command create a new collection called Jenkins and the details)
+    6. Configure Jenkins build for wot-sys
         - Move to http://localhost:8081
         - Click on "New Item" at the top left-hand side of your dashboard
         - In the next screen,
@@ -132,10 +145,10 @@ Device setup recreation:
 
 10. Startup script:
     1. This repository has a "startUp.sh"
-    2. Run and check the startup.sh after reboot.
+    2. Run and check the startUp.sh after reboot.
 
 11. Configure Cronjob on reboot:
     1. Open crontab file "crontab -e"
-    2. Add the line at the EOF - "@reboot /path/to/file"
+    2. Add the line at the EOF - "@reboot /path/to/startUp.sh"
     3. On saving and quiting the file, cronjob gets configured.
     4. Check after reboot
