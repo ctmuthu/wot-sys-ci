@@ -4,11 +4,17 @@ This tool is to developed to perform continuous integration on the wot-sys devic
 
 Its not a standalone tool. Idea can be used for continuous integration in Web of Things.
 
+Working Principle:
+
+![Architecture](architecture.png)
+
 Requirements: 
 
 1. Raspberry pi 4 with the 4GB RAM. - Go with the latest version if released.
 
-TODO: Vagrant box with all packages preinstalled.
+2. SD Card with the minimum of 16 GB memory capacity
+
+TODO: Vagrant box with all packages preinstalled
 
 Device setup recreation:
 
@@ -20,13 +26,19 @@ Device setup recreation:
 
 4. Connect to BayernWLAN. (Do not connect to any radius server, unless you have seperate user for the Raspberry pi)
 
-5. Install MongoDB wihtout authentication:
+5. Ethernet Config:
+    1. Configure eth0 with static ip 192.168.0.100 and make sure no gateway routes are learned through it.
+        - Configure the file /etc/dhcpcd.conf with the below commands
+            - interface eth0
+            - static ip_address=192.168.0.100/24
+            - nogateway
+
+6. Install MongoDB wihtout authentication:
 
     1. Install docker:
         1. Install Docker `curl -sSL https://get.docker.com | sh`
         2. Add permission to Pi User to run Docker Commands `sudo usermod -aG docker pi`
         3. Test Docker installation `docker run hello-world `
-        
     2. Install MongoDB from docker:
         - docker build -t andresvidal/rpi3-mongodb3 .
     3. Starting MongoDB with REST enabled: (TODO: Explain what this command does)
@@ -39,17 +51,18 @@ Device setup recreation:
             -p 28017:28017 \
             andresvidal/rpi3-mongodb3:latest \
             mongod --rest
+        - The above command allows to start the docker image and makes sure it restarts when the docker image moves state when it is not stopped manually. This command also 
     4. Check Docker image status:
         - docker ps or docker ps -a to see previous ones
 
-6. Run Database Server: (Only for the first time, On reboot the server is started from the startup file)
+7. Run Database Server: (Only for the first time, On reboot the server is started from the startup file)
     1. Clone this Repository
     2. Navigate to db/server
     3. npm install
     4. node wot-sys-ci/db/server/app.js & (Always run in background)
     5. Check server process using " ps -ef | grep "node" "
 
-7. Install Jenkins:
+8. Install Jenkins:
     1. Install Java: (As Jenkins is built using java):
         - https://imagej.net/Raspberry_Pi
     2. Install Jenkins:
@@ -58,7 +71,7 @@ Device setup recreation:
     3. Jenkins installation will lead to login: Path to intial admin password.
         - sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
-8. Configure Jenkins:
+9. Configure Jenkins:
     1. Install "Email Extension Plugin"
         - Go to Manage Jenkins > Manage Plugins > click on tab Available and search for “Email Extension”
         - If you find, install it. If you don’t find it, search in Installed tab because it can be installed.
@@ -117,11 +130,11 @@ Device setup recreation:
                 - Click the ‘Save’ button
                 - Click the ‘Build now’ link and check the email id after the job execution.
 
-9. Startup script:
-    1. This repository has a "startup.sh"
+10. Startup script:
+    1. This repository has a "startUp.sh"
     2. Run and check the startup.sh after reboot.
 
-10. Configure Cronjob on reboot:
+11. Configure Cronjob on reboot:
     1. Open crontab file "crontab -e"
     2. Add the line at the EOF - "@reboot /path/to/file"
     3. On saving and quiting the file, cronjob gets configured.
