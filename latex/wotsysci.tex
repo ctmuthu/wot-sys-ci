@@ -130,30 +130,36 @@
 \begin{abstract}
 
   Number of Internet of Things (IoT) devices are growing exponentially with the development of the smart city, connected car and industry 4.0.
-  As of August 2019, there are 26 billion (and growing active) IoT devices in business and consumer space. 
-  But 42 billion connected IoT devices are required by the year 2025. 
-  We are supposed to produce 16 billion flawless connected devices in the next 5 years. 
-  On top of it, the major drawback of the IoT ecosystem is its highly fragmented nature. 
-  Even if infinite solutions are arising, in both the consumer and business market, most of them are incompatible and reflect the needs of particular use-cases and technologies. 
-  The World Wide Web Consortium Web of Things (W3C WoT) is intended to enable interoperability across IoT platforms and application domains. 
-  Though the deployment time is reduced by WoT, it is a problem of the tester to perform black-box testing on each Thing in the WoT ecosystem during the testing phase.  
-  This paper is applying the concept of Continuous Integration (CI) into WoT, by considering the WoT devices as contributors and WoT system as a single software project to speed up the production of IoT devices in WoT ecosystem.
+  % As of August 2019, there are 26 billion (and growing active) IoT devices in business and consumer space. 
+  % But 42 billion connected IoT devices are required by the year 2025. 
+  % We are supposed to produce 16 billion flawless connected devices in the next 5 years.
+  As of 2019, there are 26.6 billion IoT devices. 
+  But, the major drawback of the IoT ecosystem is its highly fragmented nature. 
+  Even if infinite solutions are arising, most of them are incompatible and reflect the needs of particular use-cases and technologies. 
+  The World Wide Web Consortium (W3C) Web of Things (WoT) is intended to enable interoperability across IoT platforms and application domains. 
+  In the act of using WoT for deploying IoT platform, WoT has reduced a considerable amount of time for the IoT platform developers. 
+  Though the platform deployment time is reduced by WoT, it is still a problem of the platform developers to make sure the IoT platform is working as per the requirements after individual device upgrades.  
+  This paper explains the method that uses the principles of Continuous Integration (CI) into WoT, by considering the WoT devices as contributors and WoT system as a single software project to show that the system of WoT devices is functioning as per the requirement after every hardware, software or network update.
 
 \end{abstract}
 
 \begin{IEEEkeywords}
-Internet of Things, Thing Description, Web of Things, System Testing
+Internet of Things, Upgrade, Web of Things, System Testing
 \end{IEEEkeywords}
 
 \section{Introduction} \label{introduction}
 
-\ac{iot} is a system of interrelated computing devices like smart home appliances, smart medical and health- care appliances, smart wearables, and computer devices. 
+\ac{iot} is a system of interrelated computing devices like smart home appliances, smart medical appliances and computer devices. 
 Each device that is attached with a sensor and an actuator and can communicate via the Internet is an \ac{iot} device. 
-The number of \ac{iot} devices are growing exponentially with the development of the smart city, connected car and industry 4.0. As of August 2019, there are 26 billion (and growing active) \ac{iot} devices in business and consumer space. 
-But, the major drawback of the \ac{iot} ecosystem is its highly fragmented nature. 
-Even if infinite solutions are arising, in both the consumer and business market, most of them are incompatible and reflect the needs of particular use-cases and technologies.
+The number of \ac{iot} devices are growing exponentially with the development of the smart city, connected car and industry 4.0. 
+As of August 2019, there are 26 billion (and growing active) \ac{iot} devices in business and consumer space.
+All these devices are of built under different architecture and principles. 
+\ac{iot} platform developers are supposed to interact with these devices in different methods due to its highly fragmented nature.  
+% But, the major drawback of the \ac{iot} ecosystem is its highly fragmented nature. 
+% Even if infinite solutions are arising, in both the consumer and business market, most of them are incompatible and reflect the needs of particular use-cases and technologies.
 As a consequence, IoT system architects are forced to either use a single system (thus limiting the number of available devices) or to face several compatibility issues. 
 Moreover, different standards cannot leverage the device to device concepts, as they will always require an adaptation element to ensure interoperability. \cite{fantacci2014short}
+
 
 The \ac{w3c} \ac{wot} is intended to enable interoperability across \ac{iot} platforms and application domains. 
 Overall, the goal of the \ac{wot} is to preserve and complement existing \ac{iot} standards and solutions. 
@@ -163,19 +169,26 @@ A Thing Description describes the metadata and interfaces of Things, where a Thi
 Thing Descriptions provide a set of interactions based on a small vocabulary that makes it possible both to integrate diverse devices and to allow diverse applications to interoperate. 
 Thing Descriptions, by default, are encoded in a JSON format that also allows JSON-LD processing. 
 
+\begin{figure}[t]
+  \centerline{\includegraphics[scale=0.6]{iotSystem} }
+  
+  \caption{IoT ecosystem with developers}
+  \label{fig:Architecture}
+\end{figure}
+
 \ac{wot} can be easily integrated into the \ac{iot} platforms to enable horizontal business cases and applications. 
 Apart from that, utilization of the Web Technology reduces testing time and deployment of RESTful web services \cite{datta2018advances}.
-Though the deployment time is reduced by \ac{wot}, t is a problem of the tester to perform black-box testing on each Thing in the \ac{wot} ecosystem during testing phase. 
-As the testers are supposed to deploy it on each and every device and test it manually during the testing phase. 
+Though the platform deployment time is reduced by WoT, it is still a problem of the platform developers to make sure the IoT platform is working as per the requirement after individual device upgrades.
 
-Continuous Integration is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. 
+In the convention of software development, Continuous Integration (CI) is a software development practice where members of a team integrate their work frequently, usually each person integrates at least daily - leading to multiple integrations per day. 
 Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible. Many teams find that this approach leads to significantly reduced integration problems and allows a team to develop cohesive software more rapidly.\cite{fowler2006continuous}
 
-In this paper we are applying the concept of Continuous Integration (CI) into \ac{wot} by considering the \ac{wot} devices as contributors and \ac{wot} system as a Single software project to speed up the production of IoT devices in \ac{wot} ecosystem. 
-First, we describe the State of the art of Continuous Integration in \ac{wot}. 
-Second, we state the methods and materials used in solving the problem. 
-Third, we explain our approach used in our system. 
-Fourth, we share the results of our work. Finally, we state the future work in the field and give our conclusion to the solution.
+In this paper we are explaining the method that uses the principles of Continuous Integration (CI) into \ac{wot} by considering the \ac{wot} devices as contributors and \ac{wot} system as a Single software project. 
+% First, we describe the State of the art of Continuous Integration in \ac{wot}. 
+% Second, we state the methods and materials used in solving the problem. 
+% Third, we explain our approach used in our system. 
+% Fourth, we share the results of our work. Finally, we state the future work in the field and give our conclusion to the solution.
+Our contribution in this paper is to automate the test framework to perform a test on all the \ac{wot} devices that are attached to that platform after each and every change in the system.
 
 \section{State of the Art}
 
@@ -183,15 +196,16 @@ Testing an \ac{iot} device is significantly different from testing a typical hos
 Since end-to-end testing in \ac{iot} system involves physical devices, a complete automation testing suite usually cannot be deployed on the IoT device. 
 IoT software components are strongly coupled with the hardware \cite{rosenkranz2015distributed}.
 
-As stated earlier in this paper, each Thing in the \ac{wot} ecosystem has a \ac{td} which describes the metadata and interfaces of Things, wherein a Thing is a set of smart embedded device which can sense and communicate with other devices via Internet. 
+As stated earlier in this paper, each Thing in the \ac{wot} ecosystem has a \ac{td} which describes the metadata and interfaces of Things. 
 Thereby, this Thing Description a JSON object is further used for testing the Things in \ac{wot} ecosystem. 
 We have a testbench tool, which can test a \ac{wot} Thing by executing interactions automatically, based on its Thing Description. 
 Each interaction is executed based on the Representational State Transfer (REST), is a software architectural style that defines a set of constraints to be used for creating Web services. 
-The Application Programming Interfaces (APIs) are created on the server to allow the client to talk to Server. APIs that adhere to the REST architectural constraints are called RESTful APIs. 
+The Application Programming Interfaces (APIs) are created on the server to allow the client to talk to server. APIs that adhere to the REST architectural constraints are called RESTful APIs. 
 But testbench is a tool which can test Thing Description of a Thing, when the Thing Description is provided to the tool.
 
-Most commonly, in today’s world \ac{iot} device software is tested with the help of simulators and emulators. 
-Karlesky and Williams presented an approach \cite{karlesky2007mocking} to test the software developed for embedded devices that are resource constrained. 
+Most commonly, \ac{iot} device software is tested with the help of simulators and emulators. 
+
+The approach in \cite{karlesky2007mocking} is to test the software developed for embedded devices that are resource constrained. 
 There are multiple benefits while using an emulator or simulator, Hardware and software can be developed parallelly as there is no dependency hardware for testing the software. 
 An end to end test setup can be developed with the help of Continuous Integration and Continuous Development (CI/CD) tools like Jenkins, CircleCI and more. 
 Therefore, this setup will be much faster than the normal testing setup. 
@@ -199,18 +213,17 @@ But the problem with the emulator is that, it is impossible with the current tec
 This problem is an extensive constraint for the developers. 
 Therefore, this approach can’t be used for our problem.
 
-Adam Dunkels developed Cooja Simulator, A cross-layer java-based wireless sensor network simulator distributed with Contiki. 
+In \cite{osterlind2006cross} Cooja Simulator, A cross-layer java-based wireless sensor network simulator distributed with Contiki. 
 It allows the simulation of different levels from physical to application layer, and also allows the emulation of the hardware of a set of sensor nodes. 
 This system can simulate wireless communication medium and perform a complete white-box testing. 
-This approach also shares the benefits and drawbacks of the approach of Karlesky and Williams.
-
-Unit Testing for Wireless Sensor Networks is the paper written by Okola and Whitehouse. 
-This paper presents a new unit testing framework that addresses this concern by defining tests as a single Python script that executes on the PC. 
+This approach also shares the benefits and drawbacks of the approach of \cite{karlesky2007mocking}.
+ 
+\cite{okola2010unit} presents a new unit testing framework that addresses this concern by defining tests as a single Python script that executes on the PC. 
 This script automatically generates test programs, coordinates the inputs, and collects outputs from all nodes in the network. 
 This approach allows validation of distributed state, while simultaneously reducing the amount of code needed to define a unit test. 
 But this tool requires to know each variable and function and 1 line of code is required for each function or variable. 
 Therefore, this tool addons the manual work to the developer. 
-Thus, it is still not solving our problem \cite{okola2010unit}.
+Thus, it is still not solving our problem.
 
 Increasing the Reliability of Wireless Sensor Networks with a Distributed Testing Framework is the paper written by Woehrle and team. 
 The paper presents essential features of a framework for testing a broad range of WSN applications. 
@@ -239,47 +252,49 @@ In this section, we initially give an overview of the architecture, then justify
 \end{figure}
 
 \subsection{Architectural Overview: }
-Our architecture consists of \ac{wot} Things, Web API server, database server, automation server, testing framework and a Response Client. 
+Our architecture consists of \ac{wot} Things, backend server, database server, automation server, testing framework and a push notification. 
 A test platform can be one or more \ac{wot} devices connected to internet and the devices can talk in multiple protocols as the test framework. 
 
 The \ac{wot} Thing is any device that has a set of sensors and actuators and can connect to internet via its interface. 
-Most importantly the Thing must be designed under \ac{wot} Thing Description. 
+Most importantly the Thing must have \ac{wot} Thing Description. 
 The task of the \ac{wot} Thing is to push their Thing Description with WoT TD standards to the Web  Server as http post request. 
 Things are expected to send their Thing Description, whenever there is software or hardware update on the Thing or on a failover scenario or during network change. 
 A Thing can also communicate with other devices during testing to perform integration testing.
 
-The Web Server is a programmatic interface consisting of one or more publicly exposed endpoints to a defined request–response message system. 
-The Web API Server is additionally assigned to trigger the automation server whenever there is a new Thing Description added to the database and store the result from automation server to database.
+The backend server is a programmatic interface consisting of one or more publicly exposed endpoints to a defined request–response message system. 
+The backend server is additionally assigned to trigger the automation server whenever there is a new Thing Description added to the database and store the result from automation server to database.
 In our system we have exposed end points to perform all database operations like read, write, update or delete. 
-The task of the Web Server is to process the request and perform the corresponding action in the database and send response to the Things or to a API Client.
+The task of the backend server is to process the request and perform the corresponding action in the database and send response to the Things or to a API Client.
 
-The Database server, adopt any database as a backend to store and retrieve.  
+The database server, adopt any database as a backend to store and retrieve.  
 In our system, the database server has two models or tables, first to store the Thing Description and second to store the credentials of automation server. 
-The task of the database server is to perform the actions sent by requests from Web API Server and return a response with success or failure. 
+The task of the database server is to perform the actions sent by requests from backend server and return a response with success or failure. 
 Additionally, the database server is supposed to maintain the last five versions of Thing Description and consecutive two versions should not have the same Thing Description. 
 
-The Automation server is a tool which enables developers around the world to reliably build, test, and deploy their software. 
-In our architecture we need an automation server which doesn’t require a codebase to perform automation. 
+The automation server is a tool which enables developers around the world to reliably build, test, and deploy their software. 
+In our architecture we need an automation server which does not require a codebase to perform automation. 
 As we are using the concept of continuous integration to trigger a build for an update on database. 
-Our Automation server must be capable of sending the test results to the users. 
-The task of the automation server is 
-to clone or download the Web server and test framework repositories and build both the repositories and 
+Our automation server must be capable of sending the test results to the users. 
+The task of the automation server is to clone or download the Web server and test framework repositories and build both the repositories and 
 to start the build to fetch all the Thing Descriptions from the database with the help of Web server and 
 run all the Thing Descriptions against the test framework and 
 get the results and logs from the test framework and compress and send it to users.
 
-The Test Framework is a set of guidelines or rules used for creating and designing test cases. In our architecture the test framework must be based on Thing Description from \ac{w3c} \ac{wot}. 
+The test framework is a set of guidelines or rules used for creating and designing test cases. 
+In our architecture the test framework must be based on Thing Description from \ac{w3c} \ac{wot}. 
 The task of the test framework is to test the Thing Descriptions in a sequential manner. 
 A Thing Description should represent capabilities of a device. 
 This implies that if a device supports the interactions that a client can execute based on the device's Thing Description, it doesn't comply to its own Thing Description. 
 The test framework must generate fake data for each variable in the Thing Description and send, read request and write request to the Thing and validate the user access rights and additionally send command to all actions in the Thing Description via IoT protocols and validate the response. 
 
-The Response Client is a desktop application that enables configuring one or more contact identities to receive, read, compose and share information with interested groups. 
-In our architecture, we require an response client which can collaborate with our automation server. 
+The push notification is a any application that enables configuring one or more contact identities to receive, read, compose and share information with interested groups. 
+In our architecture, we require a client which can collaborate with our automation server. 
 The task of the response client is to fetch the result and log from test framework and compress it as an attachment and send it to the corresponding recipients and return the status of the response client send function to the automation server. 
 A response is supposed to be send for every build irrespective of build success or failure.
 
 \subsection{Architectural Elements}
+
+The Architectural overview presented earlier is implemented with the following elements.
 
 \subsubsection{Things:}
 
@@ -305,7 +320,7 @@ In JavaScript this is handled by using what is called an “asynchronous non-blo
 \begin{figure}[t]
   \centerline{\includegraphics[scale=0.6]{SystemFlowChart} }
   
-  \caption{System Design}
+  \caption{Algorithm}
   \label{fig:System Flow Chart}
 \end{figure}
 
@@ -392,8 +407,10 @@ As a result of this function a test report is generated and returned to the test
 The combination of resource constrained platform and the highly fragmented nature has made \ac{iot} system testing a challenge.
 Unfortunately, we are unable to achieve the expectations with the emulators.
 In this paper, we analyzed the challenges of system testing in \ac{iot} devices and presented a test system architecture to perform a automated system test for \ac{iot} devices.
-The presented architecture is supposed to be used for blackbox system testing for \ac{w3c} \ac{wot} ecosystem. Additionally, it takes only one minute and thirty seconds for fifteen device in a isolated ecosystem under a Local Area Network (LAN).
-Furthermore, we have overcome the interoperability problem with the support of \ac{wot} \ac{td}.
+The presented architecture is supposed to be used for blackbox system testing for \ac{w3c} \ac{wot} ecosystem. 
+Our contribution in this paper to automate the test framework, to perform a test on all the \ac{wot} devices that are attached to that platform after each and every change in the system has reduced the efforts of developer to perform test after each update.
+% Additionally, it takes only one minute and thirty seconds for fifteen device in a isolated ecosystem under a Local Area Network (LAN).
+% Furthermore, we have overcome the interoperability problem with the support of \ac{wot} \ac{td}.
 Though we have achieved continuous integration in the \ac{wot} ecosystem, it is still not equivalent to end to end automation.
 A manual work is required to deploy the software into microcontrollers. 
 Since every microcontroller cannot be accessed through telnet or secure shell, it is still a research topic to build an application to deploy the microcontroller software into microcontroller without physical contact. 

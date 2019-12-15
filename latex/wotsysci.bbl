@@ -54,6 +54,12 @@ M.~Karlesky, G.~Williams, W.~Bereza, and M.~Fletcher, ``Mocking the embedded
   world: Test-driven development, continuous integration, and design
   patterns'', in \emph{Proc. Emb. Systems Conf, CA, USA}, 2007, pp. 1518--1532.
 
+\bibitem{osterlind2006cross}
+F.~{\"O}sterlind, A.~Dunkels, J.~Eriksson, N.~Finne, and T.~Voigt,
+  ``Cross-level sensor network simulation with cooja'', in \emph{First IEEE
+  International Workshop on Practical Issues in Building Sensor Network
+  Applications (SenseApp 2006)}, 2006.
+
 \bibitem{okola2010unit}
 M.~Okola and K.~Whitehouse, ``Unit testing for wireless sensor networks'', in
   \emph{Proceedings of the 2010 ICSE Workshop on Software Engineering for

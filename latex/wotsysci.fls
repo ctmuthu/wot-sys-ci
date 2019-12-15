@@ -270,6 +270,9 @@ INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 INPUT /usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmrc7t.tfm
+INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/iotSystem.pdf
+INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/iotSystem.pdf
+INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/iotSystem.pdf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map
@@ -285,10 +288,10 @@ INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmrc7t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
-INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/arch.pdf
-INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/arch.pdf
-INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/arch.pdf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
+INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/arch.pdf
+INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/arch.pdf
+INPUT /Users/MCM/Documents/Uni/wot-sys-ci/latex/images/arch.pdf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
 INPUT /usr/local/texlive/2019/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT /usr/local/texlive/2019/texmf-dist/tex/latex/microtype/mt-cmr.cfg
