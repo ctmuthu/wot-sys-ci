@@ -22,19 +22,19 @@
 \BIBdecl
 
 \bibitem{fantacci2014short}
-R.~Fantacci, T.~Pecorella, R.~Viti, and C.~Carlini, ``Short paper: Overcoming
-  iot fragmentation through standard gateway architecture'', in \emph{2014 IEEE
-  World Forum on Internet of Things (WF-IoT)}.\hskip 1em plus 0.5em minus
+R.~Fantacci, T.~Pecorella, R.~Viti, and C.~Carlini, ``{Short paper: Overcoming
+  IoT Fragmentation through Standard Gateway Architecture}'', in \emph{2014
+  IEEE World Forum on Internet of Things (WF-IoT)}.\hskip 1em plus 0.5em minus
   0.4em\relax IEEE, 2014, pp. 181--182.
 
 \bibitem{datta2018advances}
-S.~K. Datta and C.~Bonnet, ``Advances in web of things for iot
-  interoperability'', in \emph{2018 IEEE International Conference on Consumer
+S.~K. Datta and C.~Bonnet, ``{Advances in Web of Things for IoT
+  Interoperability}'', in \emph{2018 IEEE International Conference on Consumer
   Electronics-Taiwan (ICCE-TW)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE,
   2018, pp. 1--2.
 
 \bibitem{fowler2006continuous}
-M.~Fowler and M.~Foemmel, ``Continuous integration'', \emph{Thought-Works)
+M.~Fowler and M.~Foemmel, ``{Continuous Integration}'', \emph{Thought-Works)
   http://www. thoughtworks. com/Continuous Integration. pdf}, vol. 122, p.~14,
   2006.
 
@@ -44,26 +44,34 @@ C.~Bormann, M.~Ersue, and A.~Keranen, ``Terminology for constrained-node
   pp. 2070--1721, 2014.
 
 \bibitem{rosenkranz2015distributed}
-P.~Rosenkranz, M.~W{\"a}hlisch, E.~Baccelli, and L.~Ortmann, ``A distributed
-  test system architecture for open-source iot software'', in \emph{Proceedings
-  of the 2015 Workshop on IoT challenges in Mobile and Industrial
-  Systems}.\hskip 1em plus 0.5em minus 0.4em\relax ACM, 2015, pp. 43--48.
+P.~Rosenkranz, M.~W{\"a}hlisch, E.~Baccelli, and L.~Ortmann, ``{A distributed
+  test system architecture for open-source IoT software}'', in
+  \emph{Proceedings of the 2015 Workshop on IoT challenges in Mobile and
+  Industrial Systems}.\hskip 1em plus 0.5em minus 0.4em\relax ACM, 2015, pp.
+  43--48.
 
 \bibitem{karlesky2007mocking}
-M.~Karlesky, G.~Williams, W.~Bereza, and M.~Fletcher, ``Mocking the embedded
+M.~Karlesky, G.~Williams, W.~Bereza, and M.~Fletcher, ``{Mocking the embedded
   world: Test-driven development, continuous integration, and design
-  patterns'', in \emph{Proc. Emb. Systems Conf, CA, USA}, 2007, pp. 1518--1532.
+  patterns}'', in \emph{Proc. Emb. Systems Conf, CA, USA}, 2007, pp.
+  1518--1532.
 
 \bibitem{osterlind2006cross}
 F.~{\"O}sterlind, A.~Dunkels, J.~Eriksson, N.~Finne, and T.~Voigt,
-  ``Cross-level sensor network simulation with cooja'', in \emph{First IEEE
+  ``{Cross-level sensor network simulation with COOJA}'', in \emph{First IEEE
   International Workshop on Practical Issues in Building Sensor Network
   Applications (SenseApp 2006)}, 2006.
 
 \bibitem{okola2010unit}
-M.~Okola and K.~Whitehouse, ``Unit testing for wireless sensor networks'', in
+M.~Okola and K.~Whitehouse, ``{Unit testing for Wireless Sensor Networks}'', in
   \emph{Proceedings of the 2010 ICSE Workshop on Software Engineering for
   Sensor Network Applications}.\hskip 1em plus 0.5em minus 0.4em\relax ACM,
   2010, pp. 38--43.
+
+\bibitem{woehrle2007increasing}
+M.~Woehrle, C.~Plessl, J.~Beutel, and L.~Thiele, ``{Increasing the reliability
+  of Wireless Sensor Networks with a distributed testing framework}'', in
+  \emph{Proceedings of the 4th workshop on Embedded networked sensors}.\hskip
+  1em plus 0.5em minus 0.4em\relax ACM, 2007, pp. 93--97.
 
 \end{thebibliography}
