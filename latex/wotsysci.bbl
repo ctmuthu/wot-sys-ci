@@ -34,9 +34,11 @@ S.~K. Datta and C.~Bonnet, ``{Advances in Web of Things for IoT
   2018, pp. 1--2.
 
 \bibitem{fowler2006continuous}
-M.~Fowler and M.~Foemmel, ``{Continuous Integration}'', \emph{Thought-Works)
-  http://www. thoughtworks. com/Continuous Integration. pdf}, vol. 122, p.~14,
-  2006.
+\BIBentryALTinterwordspacing
+M.~Fowler and M.~Foemmel, ``{Continuous Integration}'', vol. 122, p.~14, 2006.
+  [Online]. Available:
+  \url{http://www.dccia.ua.es/dccia/inf/asignaturas/MADS/2013-14/lecturas/10_Fowler_Continuous_Integration.pdf}
+\BIBentrySTDinterwordspacing
 
 \bibitem{bormann2014terminology}
 C.~Bormann, M.~Ersue, and A.~Keranen, ``Terminology for constrained-node
@@ -44,8 +46,8 @@ C.~Bormann, M.~Ersue, and A.~Keranen, ``Terminology for constrained-node
   pp. 2070--1721, 2014.
 
 \bibitem{rosenkranz2015distributed}
-P.~Rosenkranz, M.~W{\"a}hlisch, E.~Baccelli, and L.~Ortmann, ``{A distributed
-  test system architecture for open-source IoT software}'', in
+P.~Rosenkranz, M.~W{\"a}hlisch, E.~Baccelli, and L.~Ortmann, ``{A Distributed
+  test System Architecture for Open-source IoT Software}'', in
   \emph{Proceedings of the 2015 Workshop on IoT challenges in Mobile and
   Industrial Systems}.\hskip 1em plus 0.5em minus 0.4em\relax ACM, 2015, pp.
   43--48.
@@ -58,12 +60,12 @@ M.~Karlesky, G.~Williams, W.~Bereza, and M.~Fletcher, ``{Mocking the embedded
 
 \bibitem{osterlind2006cross}
 F.~{\"O}sterlind, A.~Dunkels, J.~Eriksson, N.~Finne, and T.~Voigt,
-  ``{Cross-level sensor network simulation with COOJA}'', in \emph{First IEEE
+  ``{Cross-level Sensor Network Simulation with COOJA}'', in \emph{First IEEE
   International Workshop on Practical Issues in Building Sensor Network
   Applications (SenseApp 2006)}, 2006.
 
 \bibitem{okola2010unit}
-M.~Okola and K.~Whitehouse, ``{Unit testing for Wireless Sensor Networks}'', in
+M.~Okola and K.~Whitehouse, ``{Unit Testing for Wireless Sensor Networks}'', in
   \emph{Proceedings of the 2010 ICSE Workshop on Software Engineering for
   Sensor Network Applications}.\hskip 1em plus 0.5em minus 0.4em\relax ACM,
   2010, pp. 38--43.

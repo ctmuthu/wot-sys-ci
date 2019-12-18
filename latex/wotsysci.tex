@@ -24,7 +24,7 @@
 \AtBeginDocument{
 % set pdfoptions
 \hypersetup{
-     pdftitle={WoT-CI: Web of Things System Continuous Integration},
+     pdftitle={WoT-CI: Continuous Integration in Web of Things Systems},
      pdfauthor={Muthuraman Chidambaram, Ege Korkan, Sebastian Steinhorst},
      pdfkeywords={Internet of Things, \ac{td}, CPS, Model-driven development, System Testing }% manual copy
    }
@@ -97,7 +97,7 @@
 %\input{autoscale.par}
 \begin{document}
 
-\title{WoT-CI: Web of Things System Continuous Integration \\
+\title{WoT-CI: Continuous Integration in Web of Things Systems \\
 }
 
 \author{
@@ -145,7 +145,7 @@
 \end{abstract}
 
 \begin{IEEEkeywords}
-Internet of Things, Upgrade, Web of Things, System Testing
+Internet of Things, Web of Things, System Testing
 \end{IEEEkeywords}
 
 \section{Introduction} \label{introduction}
@@ -173,7 +173,7 @@ Thing Descriptions, by default, are encoded in a JSON format that also allows JS
 \begin{figure}[t]
   \centerline{\includegraphics[scale=0.6]{iotSystem} }
   
-  \caption{The figure describes the use of Continuous Integration in WoT-CI: The principles of Continuous Integration (CI) in the context of WoT, by considering the WoT devices as contributors and WoT system as a single software project}
+  \caption{Describes the use of Continuous Integration in WoT-CI: The principles of Continuous Integration (CI) in the context of WoT, by considering the WoT devices as contributors and WoT system as a single software project.}
   \label{fig:WoT-CI}
 \end{figure}
 
@@ -233,7 +233,7 @@ Though the approaches above are satisfying most of our problem case, we don’t 
 The methods which rely mostly on either emulators or simulators are elegant in terms of the offered test workflow. 
 However, they are also difficult to implement for projects which support many different device types \cite{rosenkranz2015distributed}.
 
-\section{A Comprehensive WOT-CI Test System Architecture}
+\section{A Comprehensive WoT-CI Test System Architecture}
 
 We propose a test system architecture for \ac{wot} software development that is not only scalable in the number of supported device types, but also in the number of test scenarios. 
 It allows any device that is built with the support of \ac{wot} \ac{td}.  
@@ -242,7 +242,7 @@ In this section, we initially give an overview of the architecture, then justify
 
 \begin{figure}[t]
   \centerline{\includegraphics[scale=0.7]{arch} }
-  \caption{The figure above depicts the architectural overview of WoT-CI}
+  \caption{Depiction of the architectural overview of WoT-CI, where Things, Backend server, Jenkins, WoT-Testbench, and Database can be seen}
   \label{fig:Architecture}
 \end{figure}
 
@@ -250,43 +250,43 @@ In this section, we initially give an overview of the architecture, then justify
 Our architecture consists of \ac{wot} Things, backend server, database server, automation server, testing framework and a notification service. 
 A test platform can be one or more \ac{wot} devices connected to the Internet and the devices can talk in multiple protocols as the test framework. 
 
-The \ac{wot} Thing (Fig. \ref{fig:Architecture}(a)) is any device that has a set of sensors and actuators and can connect to internet via its interface. 
+The \ac{wot} Thing Figure \ref{fig:Architecture}(a) is any device that has a set of sensors and actuators and can connect to internet via its interface. 
 Most importantly the Thing must have \ac{wot} \ac{td}. 
 The task of the \ac{wot} Thing is to register their \ac{td} with WoT TD standards to the Web Server. 
 Things are expected to send their \ac{td}, whenever there is software or hardware update on the Thing or on a failover scenario or during network change.
 Manual registration of \ac{td} is also possible.
 A Thing can also communicate with other devices during testing to perform integration testing.
 
-The backend server (Fig. \ref{fig:Architecture}(b)) is a programmatic interface consisting of one or more publicly exposed endpoints to a defined request–response message system. 
+The backend server Figure \ref{fig:Architecture}(b) is a programmatic interface consisting of one or more publicly exposed endpoints to a defined request–response message system. 
 The backend server is additionally assigned to trigger the automation server whenever there is a new \ac{td} added to the database and store the result from automation server to database.
 In our system we have exposed end points to perform all database operations like read, write, update or delete. 
 The task of the backend server is to process the request and perform the corresponding action in the database and send response to the Things or to a API Client.
 
-The database server (Fig. \ref{fig:Architecture}(c)), adopt any database as a backend to store and retrieve.  
+The database server Figure \ref{fig:Architecture}(c), adopt any database as a backend to store and retrieve.  
 In our system, the database server has two models or tables, first to store the \ac{td} and second to store the credentials of automation server. 
 The task of the database server is to perform the actions sent by requests from backend server and return a response with success or failure. 
 Additionally, the database server is supposed to maintain the last five versions of \ac{td} and consecutive two versions should not have the same \ac{td}. 
 
-The automation server (Fig. \ref{fig:Architecture}(d)) is a tool which enables developers around the world to reliably build, test, and deploy their software. 
+The automation server Figure \ref{fig:Architecture}(d) is a tool which enables developers around the world to reliably build, test, and deploy their software. 
 In our architecture we need an automation server which does not require a codebase to perform automation. 
 As we are using the concept of continuous integration to trigger a build for an update on database, our automation server must be capable of sending the test results to the users. 
 The task of the automation server is to 
 \begin{itemize}
   \item Clone or download the Web server and test framework repositories.
-  \item Build both the repositories.
-  \item Start the build to fetch all the Thing Descriptions from the database with the help of Web server.
+  \item Build both repositories.
+  \item Start the build to fetch all the Thing Descriptions from the database with the help of the Web server.
   \item Run all the Thing Descriptions against the test framework.
   \item Send the test results to the developer.
 \end{itemize}
 
-The test framework (Fig. \ref{fig:Architecture}(e)) is a set of guidelines or rules used for creating and designing test cases. 
+The test framework Figure \ref{fig:Architecture}(e) is a set of guidelines or rules used for creating and designing test cases. 
 In our architecture the test framework must be based on \ac{td} from \ac{w3c} \ac{wot}. 
 The task of the test framework is to test the Thing Descriptions in a sequential manner. 
 A \ac{td} should represent capabilities of a device. 
 This implies that if a device supports the interactions that a client can execute based on the device's \ac{td}, it doesn't comply to its own \ac{td}. 
 The test framework must generate fake data for each variable in the \ac{td} and send, read request and write request to the Thing and validate the user access rights and additionally send command to all actions in the \ac{td} via IoT protocols and validate the response. 
 
-The notification service (Fig. \ref{fig:Architecture}(e)) is a any application that enables configuring one or more contact identities to receive, read, compose and share information with interested groups. 
+The notification service Figure \ref{fig:Architecture}(f) is a any application that enables configuring one or more contact identities to receive, read, compose and share information with interested groups. 
 In our architecture, we require a client which can collaborate with our automation server. 
 The task of the notification service is to fetch the result and log from test framework and send it to developers and return the status of the response client send function to the automation server. 
 A response is supposed to be send for every build irrespective of build success or failure.
@@ -314,9 +314,9 @@ NodeJS is used for the asynchronous call feature.
 Therefore, with the asynchronous feature NodeJS is lighter and faster than other scripting languages.
 
 \begin{figure}[t]
-  \centerline{\includegraphics[scale=0.9]{SystemFlowChart} }
+  \centerline{\includegraphics[scale=0.88]{SystemFlowChart} }
   
-  \caption{The flowchart above illustrates the flow of the WoT-CI, starting from the system inspecting for a change on Thing to testing new or updated TD and notifying the results of the Thing to the User}
+  \caption{The flowchart above illustrates the flow of the WoT-CI, starting from the system inspecting for a change on Thing to testing new or updated Thing and notifying the users with the results of the Things}
   \label{fig:Algorithm}
 \end{figure}
 
@@ -361,7 +361,7 @@ App Passwords can only be used with accounts that have 2-Step Verification turne
 
 \section{Approach}
 
-The approach illustrated in the fig. \ref{fig:Algorithm} is explained below.
+The approach illustrated in the Figure \ref{fig:Algorithm} is explained below.
 
 \subsection{Generation of \ac{td}:}
   
@@ -396,8 +396,8 @@ Once the Web API Server receives the \ac{td}.
 On receiving the build trigger for an item, Jenkins is configured to clean up the previous build log and perform the following task:
 
 \begin{itemize}
-\item Clone the testbench repository from tum-esi in github, build the repository and start the testbench tool.
-\item Clone the wot-ci repository from tum-esi in github, build the repository and start the testing server.
+\item Clone the testbench repository, build the repository and start the testbench tool.
+\item Clone the wot-ci repository, build the repository and start the testing server.
 \item Send the result of the test to the users via email.
 \end{itemize}
 
@@ -412,6 +412,13 @@ Testbench can be used to perform unit test as well as integration test.
 The fasttest action in the testbench tool is used for the integration test. 
 As a result of this function a test report is generated and returned to the testing server.
 
+\section{Future work} 
+Though we have achieved continuous integration in the \ac{wot} ecosystem, it is still not equivalent to end to end automation.
+A manual work is required to deploy the software into microcontrollers. 
+Since every microcontroller cannot be accessed through telnet or secure shell, it is still a research topic to build an application to deploy the microcontroller software into microcontroller without physical contact.  
+This problem is an extensive constraint for the developers.
+One approach we are considering is to use terraform to do deploy the software into microcontrollers to complete the full automation, but many \ac{iot} devices are not accessible via secure shell or telnet connections.  
+
 \section{Conclusion}
 
 The combination of resource constrained platform and the highly fragmented nature has made \ac{iot} system testing a challenge.
@@ -421,12 +428,6 @@ The presented architecture is supposed to be used for blackbox system testing fo
 In this paper we introduce WoT-CI, a method that uses the principles of Continuous Integration (CI) in the context of \ac{wot}, by considering the \ac{wot} devices as contributors and \ac{wot} system as a single software project. We show that this system can reduce system integration effort while requiring no manual input from the developer, thereby, assuring that the \ac{wot} devices are functioning as per the requirement after any change to the hardware, software or network.
 % Additionally, it takes only one minute and thirty seconds for fifteen device in a isolated ecosystem under a Local Area Network (LAN).
 % Furthermore, we have overcome the interoperability problem with the support of \ac{wot} \ac{td}.
-
-\textbf{Future work.} Though we have achieved continuous integration in the \ac{wot} ecosystem, it is still not equivalent to end to end automation.
-A manual work is required to deploy the software into microcontrollers. 
-Since every microcontroller cannot be accessed through telnet or secure shell, it is still a research topic to build an application to deploy the microcontroller software into microcontroller without physical contact.  
-This problem is an extensive constraint for the developers.
-One approach we are considering is to use terraform to do deploy the software into microcontrollers to complete the full automation, but many \ac{iot} devices are not accessible via secure shell or telnet connections.  
 
 
 

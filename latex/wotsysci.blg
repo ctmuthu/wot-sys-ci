@@ -11,46 +11,48 @@ Database file #1: bibliography.bib
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in fowler2006continuous
 
 Done.
 You've used 9 entries,
             4087 wiz_defined-function locations,
-            874 strings with 9309 characters,
-and the built_in function-call counts, 7362 in all, are:
+            874 strings with 9340 characters,
+and the built_in function-call counts, 7364 in all, are:
 = -- 555
 > -- 179
 < -- 59
 + -- 96
 - -- 30
-* -- 355
-:= -- 1046
+* -- 359
+:= -- 1051
 add.period$ -- 23
 call.type$ -- 9
 change.case$ -- 9
 chr.to.int$ -- 150
-cite$ -- 9
-duplicate$ -- 520
-empty$ -- 652
+cite$ -- 10
+duplicate$ -- 517
+empty$ -- 648
 format.name$ -- 39
-if$ -- 1737
+if$ -- 1733
 int.to.chr$ -- 0
 int.to.str$ -- 9
 missing$ -- 89
-newline$ -- 50
+newline$ -- 52
 num.names$ -- 9
-pop$ -- 231
+pop$ -- 232
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 560
+skip$ -- 559
 stack$ -- 0
 substring$ -- 363
-swap$ -- 406
+swap$ -- 404
 text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 5
 type$ -- 9
-warning$ -- 0
+warning$ -- 1
 while$ -- 38
 width$ -- 10
-write$ -- 103
+write$ -- 105
+(There was 1 warning)
